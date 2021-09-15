@@ -1,3 +1,4 @@
+using ExpectedObjects;
 using Xunit;
 
 namespace OnlineCourse.Test
@@ -7,18 +8,23 @@ namespace OnlineCourse.Test
         [Fact(DisplayName = "My First Test")]
         public void Test()
         {
-            var name = "Curso de Cinema";
-            var workload = 80;
-            var target = "Estudantes";
-            var value = 950;
+            var expectedCourse = new
+            {
+                Name = "Curso de Cinema",
+                Workload = (double)30,
+                TargetAudience = "Estudantes",
+                Value = (double)590
+            };
 
-            var course = new Course(name, workload, target, value);
+            var course = new Course(
+                expectedCourse.Name, 
+                expectedCourse.Workload, 
+                expectedCourse.TargetAudience, 
+                expectedCourse.Value
+            );
 
-            Assert.Equal(name, course.Name);
-            Assert.Equal(workload, course.Workload);
-            Assert.Equal(target, course.TargetAudience);
-            Assert.Equal(value, course.Value);
-        }   
+            expectedCourse.ToExpectedObject().ShouldMatch(course);
+        }
     }
 
     public class Course
