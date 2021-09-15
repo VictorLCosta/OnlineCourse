@@ -12,7 +12,7 @@ namespace OnlineCourse.Test
             {
                 Name = "Curso de Cinema",
                 Workload = (double)30,
-                TargetAudience = "Estudantes",
+                TargetAudience = TargetAudience.Student,
                 Value = (double)590
             };
 
@@ -27,9 +27,17 @@ namespace OnlineCourse.Test
         }
     }
 
+    public enum TargetAudience : int
+    {
+        Student = 1,
+        Academic,
+        Employee,
+        Entrepreneur
+    }
+
     public class Course
     {
-        public Course(string name, double workload, string targetAudience, double value)
+        public Course(string name, double workload, TargetAudience targetAudience, double value)
         {
             Name = name;
             Workload = workload;
@@ -39,7 +47,7 @@ namespace OnlineCourse.Test
 
         public string Name { get; set; }
         public double Workload { get; set; }
-        public string TargetAudience { get; set; }
+        public TargetAudience TargetAudience { get; set; }
         public double Value { get; set; }
     }
 }
