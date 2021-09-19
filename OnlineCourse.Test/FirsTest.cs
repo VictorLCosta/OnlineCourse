@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using ExpectedObjects;
+using OnlineCourse.Test.Utils;
 using Xunit;
 
 namespace OnlineCourse.Test
@@ -41,11 +42,9 @@ namespace OnlineCourse.Test
                 Value = (double)590
             };
 
-            var message = Assert.Throws<ArgumentException>(() => 
+            Assert.Throws<ArgumentException>(() => 
                 new Course(invalidName, expectedCourse.Workload, expectedCourse.TargetAudience, expectedCourse.Value))
-                .Message;
-
-            Assert.Equal("Invalid name", message);
+                .WithMessage("Invalid name");
         }
 
         [Theory(DisplayName = "Course Workload Is Not Less Than 1")]
@@ -62,11 +61,9 @@ namespace OnlineCourse.Test
                 Value = (double)590
             };
 
-            var message = Assert.Throws<ArgumentException>(() => 
+            Assert.Throws<ArgumentException>(() => 
                 new Course(expectedCourse.Name, expectedCourse.Workload, expectedCourse.TargetAudience, expectedCourse.Value))
-                .Message;
-
-            Assert.Equal("Invalid workload", message);
+                .WithMessage("Invalid workload");
         }
 
         [Theory(DisplayName = "Course Value Is Not Less Than 1")]
@@ -83,11 +80,9 @@ namespace OnlineCourse.Test
                 Value = value
             };
 
-            var message = Assert.Throws<ArgumentException>(() => 
+            Assert.Throws<ArgumentException>(() => 
                 new Course(expectedCourse.Name, expectedCourse.Workload, expectedCourse.TargetAudience, expectedCourse.Value))
-                .Message;
-
-            Assert.Equal("Invalid value", message);
+                .WithMessage("Invalid value");
         }
     }
 
