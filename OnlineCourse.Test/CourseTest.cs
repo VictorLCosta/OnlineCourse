@@ -1,4 +1,5 @@
 using System;
+using Bogus;
 using ExpectedObjects;
 using OnlineCourse.Test.Builders;
 using OnlineCourse.Test.Utils;
@@ -22,11 +23,13 @@ namespace OnlineCourse.Test
             _output = output;
             _output.WriteLine("Construtor executado");
 
-            _name = "Curso de Informática";
-            _description = "Aulas de Word, Excel, PowerPoint";
-            _workload = 50;
+            var faker = new Faker();
+
+            _name = faker.Random.Word();
+            _description = faker.Lorem.Paragraph();
+            _workload = faker.Random.Double(50, 1000);
             _targetAudience = TargetAudience.Student;
-            _value = 500;
+            _value = faker.Random.Double(100, 1000);
         }
 
         public void Dispose()
