@@ -1,3 +1,6 @@
+using OnlineCourse.Domain.Entities;
+using OnlineCourse.Domain.Enums;
+
 namespace OnlineCourse.Test.Builders
 {
     public class CourseBuilder

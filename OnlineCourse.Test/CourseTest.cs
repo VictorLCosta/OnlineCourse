@@ -1,6 +1,7 @@
 using System;
 using Bogus;
 using ExpectedObjects;
+using OnlineCourse.Domain.Enums;
 using OnlineCourse.Test.Builders;
 using OnlineCourse.Test.Utils;
 using Xunit;
@@ -92,40 +93,5 @@ namespace OnlineCourse.Test
                 .WithMessage("Invalid value");
         }
 
-    }
-
-    public enum TargetAudience : int
-    {
-        Student = 1,
-        Academic,
-        Employee,
-        Entrepreneur
-    }
-
-    public class Course
-    {
-        public Course(string name, string description, double workload, TargetAudience targetAudience, double value)
-        {
-            if(String.IsNullOrEmpty(name))
-                throw new ArgumentException("Invalid name");
-
-            if(workload < 1)
-                throw new ArgumentException("Invalid workload");
-
-            if(value < 1)
-                throw new ArgumentException("Invalid value");
-
-            Name = name;
-            Description = description;
-            Workload = workload;
-            TargetAudience = targetAudience;
-            Value = value;
-        }
-
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public double Workload { get; set; }
-        public TargetAudience TargetAudience { get; set; }
-        public double Value { get; set; }
     }
 }
