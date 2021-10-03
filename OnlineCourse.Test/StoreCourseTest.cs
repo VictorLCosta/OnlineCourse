@@ -1,31 +1,54 @@
 using System;
+using Bogus;
 using Moq;
 using OnlineCourse.Domain.Entities;
 using OnlineCourse.Domain.Enums;
+using OnlineCourse.Test.Utils;
 using Xunit;
 
 namespace OnlineCourse.Test
 {
     public class StoreCourseTest
     {
+        private DtoCourse _dtoCourse;
+        private Mock<ICourseRepository> _courseRepositoryMock;
+        private CourseService _courseService;
+
+        public StoreCourseTest()
+        {
+            var faker = new Faker();
+
+            _dtoCourse = new DtoCourse 
+            {
+                Name = faker.Person.FullName,
+                Description = faker.Lorem.Paragraph(),
+                Workload = faker.Random.Double(50, 100),
+                TargetAudience = "Student",
+                Value = faker.Random.Double(100, 600)
+            };
+
+            _courseRepositoryMock = new Mock<ICourseRepository>();
+            _courseService = new CourseService(_courseRepositoryMock.Object);
+        }
+
         [Fact]
         public void MustAddCourse() 
         {
-            var dtoCourse = new DtoCourse 
-            {
-                Name = "Zaratos",
-                Description = "O mago",
-                Workload = 500.00,
-                TargetAudienceId = 1,
-                Value = 850.00
-            };
+            _courseService.Add(_dtoCourse);
 
-            var courseRepositoryMock = new Mock<ICourseRepository>();
-            var courseService = new CourseService(courseRepositoryMock.Object);
+            _courseRepositoryMock.Verify(x => x.Add(It.Is<Course>(
+                x => x.Name == _dtoCourse.Name &&
+                x.Description == _dtoCourse.Description 
+            )));
+        }
 
-            courseService.Add(dtoCourse);
+        [Fact]
+        public void MustNotInformInvalidTargetAudience()
+        {
+            _dtoCourse.TargetAudience = "Médico";
 
-            courseRepositoryMock.Verify(x => x.Add(It.IsAny<Course>()));
+            Assert.Throws<ArgumentException>(() => _courseService.Add(_dtoCourse))
+                .WithMessage("Invalid target audience");
         }
     }
 
@@ -45,11 +68,14 @@ namespace OnlineCourse.Test
 
         public void Add(DtoCourse dtoCourse)
         {
+            if(!Enum.TryParse<TargetAudience>(dtoCourse.TargetAudience, out var targetAudience))
+                throw new ArgumentException("Invalid target audience");
+
             var course = new Course(
                 dtoCourse.Name, 
                 dtoCourse.Description, 
                 dtoCourse.Workload, 
-                TargetAudience.Student, 
+                (TargetAudience)targetAudience, 
                 dtoCourse.Value
             );
 
@@ -62,7 +88,7 @@ namespace OnlineCourse.Test
         public string Name { get; set; }
         public string Description { get; set; }
         public double Workload { get; set; }
-        public int TargetAudienceId { get; set; }
+        public string TargetAudience { get; set; }
         public double Value { get; set; }
     }
 }
