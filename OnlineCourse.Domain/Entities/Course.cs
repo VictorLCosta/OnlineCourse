@@ -3,7 +3,7 @@ using OnlineCourse.Domain.Enums;
 
 namespace OnlineCourse.Domain.Entities
 {
-    public class Course
+    public class Course : BaseEntity
     {
         public Course(string name, string description, double workload, TargetAudience targetAudience, double value)
         {
