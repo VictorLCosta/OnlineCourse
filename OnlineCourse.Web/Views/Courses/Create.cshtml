@@ -1,0 +1,56 @@
+@model Course
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Novo curso";
+}
+
+<div class="container">
+    <div class="row form-wrapper">
+        <div class="col-md-12">
+            <form class="form-horizontal" asp-action="Create" asp-anti-forgery 
+                  data-ajax="true" data-ajax-method="POST" data-ajax-failure="formDomainException" data-ajax-success="window.location = '/Courses/Index'">
+                <input type="hidden" asp-for="Id">
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Nome</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" asp-for="Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Descrição</label>
+                    <div class="col-md-8">
+                        <textarea type="text" class="form-control" asp-for="Description"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Carga Horária</label>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" asp-for="Workload">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Publico</label>
+                    <div class="col-md-2">
+                        <select class="form-control" asp-for="TargetAudience">
+                            <option value="1">Estudante</option>
+                            <option value="2">Universitário</option>
+                            <option value="3">Empregado</option>
+                            <option value="4">Empreendedor</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Valor</label>
+                    <div class="col-md-2">
+                        <input class="form-control" asp-for="Value">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-8">
+                        <button class="btn btn-success">Salvar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

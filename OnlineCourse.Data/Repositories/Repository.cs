@@ -34,6 +34,11 @@ namespace OnlineCourse.Data.Repositories
             return query;
         }
 
+        public IQueryable<T> Queryable()
+        {
+            return _context.Set<T>().AsQueryable();
+        }
+
         public void Remove(T entity)
         {
             try
