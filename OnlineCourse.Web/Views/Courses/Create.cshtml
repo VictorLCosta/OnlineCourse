@@ -7,9 +7,8 @@
 <div class="container">
     <div class="row form-wrapper">
         <div class="col-md-12">
-            <form class="form-horizontal" asp-action="Create" asp-anti-forgery 
-                  data-ajax="true" data-ajax-method="POST" data-ajax-failure="formDomainException" data-ajax-success="window.location = '/Courses/Index'">
-                <input type="hidden" asp-for="Id">
+            <form class="form-horizontal" asp-action="Create" asp-controller="Courses" asp-anti-forgery
+                    data-ajax="true" data-ajax-method="POST" data-ajax-complete="formDomainSuccess" data-ajax-failure="formDomainException" data-ajax-success="window.location = '/Courses/Index'">
                 <div class="form-group">
                     <label class="col-md-2 control-label">Nome</label>
                     <div class="col-md-8">
@@ -25,7 +24,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label">Carga Horária</label>
                     <div class="col-md-2">
-                        <input type="text" class="form-control" asp-for="Workload">
+                        <input type="number" class="form-control" asp-for="Workload">
                     </div>
                 </div>
                 <div class="form-group">
@@ -42,7 +41,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label">Valor</label>
                     <div class="col-md-2">
-                        <input class="form-control" asp-for="Value">
+                        <input type="number" class="form-control" asp-for="Value">
                     </div>
                 </div>
                 <div class="form-group">

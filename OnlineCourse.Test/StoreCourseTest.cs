@@ -71,13 +71,14 @@ namespace OnlineCourse.Test
             if(!Enum.TryParse<TargetAudience>(dtoCourse.TargetAudience, out var targetAudience))
                 throw new ArgumentException("Invalid target audience");
 
-            var course = new Course(
-                dtoCourse.Name, 
-                dtoCourse.Description, 
-                dtoCourse.Workload, 
-                (TargetAudience)targetAudience, 
-                dtoCourse.Value
-            );
+            var course = new Course() 
+            {
+                Name = dtoCourse.Name, 
+                Description = dtoCourse.Description, 
+                Workload = dtoCourse.Workload, 
+                TargetAudience = (TargetAudience)targetAudience, 
+                Value = dtoCourse.Value
+            };
 
             _courseRepository.Add(course);
         }

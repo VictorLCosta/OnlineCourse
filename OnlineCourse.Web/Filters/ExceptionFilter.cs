@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using OnlineCourse.Domain.Models;
+using OnlineCourse.Application.Models.Exceptions;
 
 namespace OnlineCourse.Web.Filters
 {

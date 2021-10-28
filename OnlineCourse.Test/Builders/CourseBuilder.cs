@@ -49,7 +49,14 @@ namespace OnlineCourse.Test.Builders
 
         public Course Build()
         {
-            return new Course(_name, _description, _workload, _targetAudience, _value);
+            return new Course() 
+            {
+                Name = _name, 
+                Description = _description, 
+                Workload = _workload, 
+                TargetAudience = _targetAudience, 
+                Value = _value
+            };
         }
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace OnlineCourse.Domain.Models
+namespace OnlineCourse.Application.Models.Exceptions
 {
     public class DomainException : ArgumentException
     {

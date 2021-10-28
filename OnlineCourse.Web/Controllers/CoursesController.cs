@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using OnlineCourse.Application.Interfaces;
 using OnlineCourse.Data.Transactions;
 using OnlineCourse.Domain.Entities;
 using OnlineCourse.Web.Helpers;
@@ -9,12 +10,14 @@ namespace OnlineCourse.Web.Controllers
     public class CoursesController : Controller
     {
         private readonly IUow _uow;
+        private readonly ICourseService _courseService;
 
-        public CoursesController(IUow uow)
+        public CoursesController(IUow uow, ICourseService courseService)
         {
             _uow = uow;
+            _courseService = courseService;
         }
-        
+
         public async Task<IActionResult> Index()
         {
             var courses = _uow.Courses.Queryable();
@@ -29,18 +32,12 @@ namespace OnlineCourse.Web.Controllers
         }
         
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Course model)
         {
-            var course = new Course(
-                model.Name,
-                model.Description,
-                model.Workload,
-                model.TargetAudience,
-                model.Value
-            );
+            var result = await _courseService.AddAsync(model);
 
-            await _uow.Courses.Add(course);
-            return Ok();
+            return Ok(new { model });
         }
     }
 }

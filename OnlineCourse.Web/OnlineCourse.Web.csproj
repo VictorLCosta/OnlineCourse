@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="../OnlineCourse.Domain/OnlineCourse.Domain.csproj" />
     <ProjectReference Include="../OnlineCourse.Data/OnlineCourse.Data.csproj" />
+    <ProjectReference Include="../OnlineCourse.Application/OnlineCourse.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>

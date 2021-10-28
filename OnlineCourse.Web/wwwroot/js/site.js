@@ -4,3 +4,12 @@
             toastr.error(errorMessage)
         })
 }
+
+function formDomainSuccess(data) {
+    if(data.success === true) {
+        toastr.success(data.message, "Alerta de sucesso")
+    }
+    else {
+        toastr.error(data.message, "Alerta de Erro")
+    }
+}
